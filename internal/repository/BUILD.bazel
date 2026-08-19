@@ -1,0 +1,25 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "repository",
+    srcs = [
+        "changes.go",
+        "diff.go",
+        "files.go",
+        "patch.go",
+        "repository.go",
+    ],
+    importpath = "git-review/internal/repository",
+    visibility = ["//:__subpackages__"],
+)
+
+go_test(
+    name = "repository_test",
+    srcs = [
+        "diff_test.go",
+        "patch_test.go",
+        "repository_mutation_test.go",
+        "repository_test.go",
+    ],
+    embed = [":repository"],
+)

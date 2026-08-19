@@ -1,0 +1,29 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "git-review_lib",
+    srcs = [
+        "enroll.go",
+        "main.go",
+    ],
+    importpath = "git-review/cmd/git-review",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//internal/daemon",
+        "//internal/identity",
+        "//internal/registration",
+        "//internal/repository",
+    ],
+)
+
+go_binary(
+    name = "git-review",
+    embed = [":git-review_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "git-review_test",
+    srcs = ["enroll_test.go"],
+    embed = [":git-review_lib"],
+)

@@ -1,0 +1,30 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "server",
+    srcs = [
+        "events.go",
+        "handlers.go",
+        "routes.go",
+        "server.go",
+        "watch.go",
+    ],
+    importpath = "git-review/internal/server",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//internal/httpapi",
+        "//internal/repository",
+        "@com_github_fsnotify_fsnotify//:fsnotify",
+    ],
+)
+
+go_test(
+    name = "server_test",
+    srcs = [
+        "server_security_test.go",
+        "server_test.go",
+        "watch_test.go",
+    ],
+    embed = [":server"],
+    deps = ["//internal/repository"],
+)

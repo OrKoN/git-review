@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "daemon",
+    srcs = ["state.go"],
+    importpath = "git-review/internal/daemon",
+    visibility = ["//:__subpackages__"],
+)
+
+go_test(
+    name = "daemon_test",
+    srcs = ["state_test.go"],
+    embed = [":daemon"],
+)

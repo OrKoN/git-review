@@ -1,0 +1,55 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+genrule(
+    name = "frontend",
+    srcs = glob([
+        "build.mjs",
+        "index.html",
+        "package-lock.json",
+        "package.json",
+        "src/**",
+        "node_modules/**",
+    ]),
+    outs = [
+        "dist/index.html",
+        "dist/assets/app.js",
+        "dist/assets/style.css",
+    ],
+    cmd = "npm --prefix web run build -- $$PWD/$(RULEDIR)/dist",
+    tags = ["no-sandbox"],
+)
+
+genrule(
+    name = "typecheck",
+    srcs = glob(["src/**", "*.json", "node_modules/**"]),
+    outs = ["typecheck.ok"],
+    cmd = "npm --prefix web run check && touch $@",
+    tags = ["no-sandbox"],
+    visibility = ["//visibility:public"],
+)
+
+genrule(
+    name = "lint",
+    srcs = glob(["src/**", "e2e/**", "*.js", "*.json", "node_modules/**"]),
+    outs = ["lint.ok"],
+    cmd = "npm --prefix web run lint && touch $@",
+    tags = ["no-sandbox"],
+    visibility = ["//visibility:public"],
+)
+
+genrule(
+    name = "unit_tests",
+    srcs = glob(["src/**", "*.json", "node_modules/**"]),
+    outs = ["unit-tests.ok"],
+    cmd = "npm --prefix web test && touch $@",
+    tags = ["no-sandbox"],
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "web",
+    srcs = ["embed.go"],
+    embedsrcs = [":frontend"],
+    importpath = "git-review/web",
+    visibility = ["//visibility:public"],
+)

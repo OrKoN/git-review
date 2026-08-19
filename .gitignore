@@ -1,0 +1,9 @@
+/.tools/
+/bin/
+/web/node_modules/
+/web/.cache/
+/web/dist/*
+!/web/dist/placeholder.txt
+/web/test-results/
+/web/playwright-report/
+/bazel-*

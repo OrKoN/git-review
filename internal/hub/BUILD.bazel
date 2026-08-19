@@ -1,0 +1,32 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "hub",
+    srcs = [
+        "hub.go",
+        "tunnel.go",
+    ],
+    importpath = "git-review/internal/hub",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//internal/httpapi",
+        "//internal/identity",
+        "//internal/repository",
+        "//web",
+        "@com_github_coder_websocket//:websocket",
+        "@com_github_hashicorp_yamux//:yamux",
+    ],
+)
+
+go_test(
+    name = "hub_test",
+    srcs = [
+        "hub_test.go",
+        "tunnel_test.go",
+    ],
+    embed = [":hub"],
+    deps = [
+        "//internal/identity",
+        "//internal/registration",
+    ],
+)

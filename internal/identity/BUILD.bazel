@@ -1,0 +1,20 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "identity",
+    srcs = [
+        "client.go",
+        "credentials.go",
+        "files.go",
+        "pki.go",
+        "store.go",
+    ],
+    importpath = "git-review/internal/identity",
+    visibility = ["//:__subpackages__"],
+)
+
+go_test(
+    name = "identity_test",
+    srcs = ["store_test.go"],
+    embed = [":identity"],
+)

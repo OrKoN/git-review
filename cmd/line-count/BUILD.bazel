@@ -1,0 +1,20 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "line-count_lib",
+    srcs = ["main.go"],
+    importpath = "git-review/cmd/line-count",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "line-count",
+    embed = [":line-count_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "line-count_test",
+    srcs = ["main_test.go"],
+    embed = [":line-count_lib"],
+)

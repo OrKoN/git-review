@@ -1,0 +1,4 @@
+build --jobs=auto
+build --spawn_strategy=local
+build --action_env=PATH
+test --test_output=errors

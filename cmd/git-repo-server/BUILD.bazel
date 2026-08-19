@@ -1,0 +1,21 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "git-repo-server_lib",
+    srcs = ["main.go"],
+    importpath = "git-review/cmd/git-repo-server",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//internal/daemon",
+        "//internal/identity",
+        "//internal/registration",
+        "//internal/repository",
+        "//internal/server",
+    ],
+)
+
+go_binary(
+    name = "git-repo-server",
+    embed = [":git-repo-server_lib"],
+    visibility = ["//visibility:public"],
+)

@@ -1,0 +1,19 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "registration",
+    srcs = ["client.go"],
+    importpath = "git-review/internal/registration",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//internal/identity",
+        "@com_github_coder_websocket//:websocket",
+        "@com_github_hashicorp_yamux//:yamux",
+    ],
+)
+
+go_test(
+    name = "registration_test",
+    srcs = ["client_test.go"],
+    embed = [":registration"],
+)
