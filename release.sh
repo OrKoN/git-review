@@ -54,13 +54,23 @@ set -- \
   bin/git-repo-server-linux-arm64 \
   bin/git-review-hub-darwin-amd64 \
   bin/git-review-hub-linux-amd64 \
-  bin/git-review-hub-linux-arm64
+  bin/git-review-hub-linux-arm64 \
+  LICENSE \
+  internal/licenses/THIRD_PARTY_LICENSES.txt
 
 for asset in "$@"; do
-  if [ ! -x "$asset" ]; then
-    echo "missing release binary: $asset" >&2
+  if [ ! -f "$asset" ]; then
+    echo "missing release asset: $asset" >&2
     exit 1
   fi
+  case "$asset" in
+    bin/*)
+      if [ ! -x "$asset" ]; then
+        echo "release binary is not executable: $asset" >&2
+        exit 1
+      fi
+      ;;
+  esac
 done
 
 gh release create "$tag" "$@" \

@@ -1,5 +1,13 @@
 load("@rules_go//go:def.bzl", "go_library")
 
+exports_files(
+    [
+        "package-lock.json",
+        "package.json",
+    ],
+    visibility = ["//visibility:public"],
+)
+
 genrule(
     name = "frontend",
     srcs = glob([

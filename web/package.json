@@ -9,6 +9,8 @@
     "lint": "eslint --cache --cache-location .cache/eslint .",
     "format": "prettier --cache --cache-location .cache/prettier --write .",
     "format:check": "prettier --cache --cache-location .cache/prettier --check .",
+    "licenses": "node ../tools/generate-third-party-licenses.mjs",
+    "licenses:check": "node ../tools/generate-third-party-licenses.mjs --check",
     "test": "node --test src/*.test.ts",
     "test:e2e": "puppeteer browsers install && node --test e2e/review.spec.ts"
   },

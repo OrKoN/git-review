@@ -1,0 +1,4 @@
+exports_files(
+    ["generate-third-party-licenses.mjs"],
+    visibility = ["//visibility:public"],
+)

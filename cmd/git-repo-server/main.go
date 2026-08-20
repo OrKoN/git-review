@@ -15,6 +15,7 @@ import (
 
 	"git-review/internal/daemon"
 	"git-review/internal/identity"
+	"git-review/internal/licenses"
 	"git-review/internal/registration"
 	"git-review/internal/repository"
 	"git-review/internal/server"
@@ -29,6 +30,10 @@ func randomID(bytes int) string {
 }
 
 func main() {
+	if len(os.Args) > 1 && os.Args[1] == "licenses" {
+		_, _ = io.WriteString(os.Stdout, licenses.ThirdParty)
+		return
+	}
 	root := flag.String("repo", ".", "repository worktree")
 	hubURL := flag.String("hub", "", "git-review hub URL")
 	stateFile := flag.String("state-file", "", "daemon state file")

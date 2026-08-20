@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"net"
 	"net/url"
@@ -16,11 +17,15 @@ import (
 
 	"git-review/internal/hub"
 	"git-review/internal/identity"
+	"git-review/internal/licenses"
 )
 
 func main() {
 	if len(os.Args) > 1 {
 		switch os.Args[1] {
+		case "licenses":
+			_, _ = io.WriteString(os.Stdout, licenses.ThirdParty)
+			return
 		case "enroll":
 			enrollmentCommand()
 			return

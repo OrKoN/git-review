@@ -45,11 +45,11 @@ Start the hub on the host:
 git-review-hub --listen :8080
 ```
 
-In another host terminal, generate an enrollment bundle. Replace `MAC_ADDRESS`
+In another host terminal, generate an enrollment bundle. Replace `HOST_ADDRESS`
 with an address reachable from the remote VM:
 
 ```sh
-git-review-hub enroll --hub-url http://MAC_ADDRESS:8080 --name build-agent-1
+git-review-hub enroll --hub-url http://HOST_ADDRESS:8080 --name build-agent-1
 ```
 
 The second command prints a one-time enrollment bundle. On the remote VM,
@@ -65,7 +65,7 @@ Then request a review from inside any Git worktree:
 git-review --message "Review these changes"
 ```
 
-Open `http://MAC_ADDRESS:8080/` in a browser. Comments submitted in the web UI
+Open `http://HOST_ADDRESS:8080/` in a browser. Comments submitted in the web UI
 flow back to the `git-review` process on the VM.
 
 ## Components
@@ -88,3 +88,5 @@ For local development and release builds, see
 ## License
 
 `git-review` is available under the [MIT License](LICENSE).
+
+This is a personal (no guarantees whatsoever) project, not associated with my employer.

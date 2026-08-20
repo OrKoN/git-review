@@ -8,6 +8,7 @@ go_library(
     deps = [
         "//internal/daemon",
         "//internal/identity",
+        "//internal/licenses",
         "//internal/registration",
         "//internal/repository",
         "//internal/server",

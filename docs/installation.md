@@ -47,7 +47,7 @@ it private; replacing it requires every agent host to enroll again. Override the
 location with `--state`. The tunnel listener defaults to `:8443` and can be
 changed with `--tunnel-listen`.
 
-Open `http://MAC_ADDRESS:8080/` in the review browser. The UI remains
+Open `http://HOST_ADDRESS:8080/` in the review browser. The UI remains
 unauthenticated, so anyone who can reach it can review and mutate connected
 repositories. Bind port 8080 only to a trusted LAN. Agent traffic on port 8443
 uses TLS with client certificates even though the LAN UI uses HTTP.
@@ -57,11 +57,11 @@ agent can reach:
 
 ```sh
 git-review-hub enroll \
-  --hub-url http://MAC_ADDRESS:8080 \
+  --hub-url http://HOST_ADDRESS:8080 \
   --name build-agent-1
 ```
 
-If the externally reachable tunnel is not `MAC_ADDRESS:8443`, also pass
+If the externally reachable tunnel is not `HOST_ADDRESS:8443`, also pass
 `--tunnel-address HOST:PORT`. The command prints a one-time enrollment bundle.
 On the agent, start enrollment and paste the bundle within ten minutes:
 

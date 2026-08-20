@@ -21,11 +21,16 @@ import (
 
 	"git-review/internal/daemon"
 	"git-review/internal/identity"
+	"git-review/internal/licenses"
 	"git-review/internal/registration"
 	"git-review/internal/repository"
 )
 
 func main() {
+	if len(os.Args) > 1 && os.Args[1] == "licenses" {
+		_, _ = io.WriteString(os.Stdout, licenses.ThirdParty)
+		return
+	}
 	if len(os.Args) > 1 && os.Args[1] == "enroll" {
 		enrollHost()
 		return
