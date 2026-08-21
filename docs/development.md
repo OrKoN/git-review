@@ -51,11 +51,11 @@ passing a version tag to the release script:
 The script interactively asks for a GitHub personal access token with permission
 to create releases in `OrKoN/git-review`. Input is hidden, the token is provided
 to `gh` only for the lifetime of the script, and it is not stored by the script.
-The tag must already exist in the destination repository. The script clones
-that exact tag into a temporary directory, verifies the checkout, runs the
-complete test and release builds, verifies every expected binary, creates the
-GitHub release, generates release notes, and uploads all platform-specific
-binaries. It does not upload the unsuffixed local convenience copies from
-`bin/`.
+If the tag does not exist in the destination repository, the script creates it
+at the current tip of the repository's default branch. It then clones that exact
+tag into a temporary directory, verifies the checkout, runs the complete test
+and release builds, verifies every expected binary, creates the GitHub release,
+generates release notes, and uploads all platform-specific binaries. It does not
+upload the unsuffixed local convenience copies from `bin/`.
 
 Set `GIT_REVIEW_REPOSITORY` to publish to another `OWNER/REPOSITORY`.

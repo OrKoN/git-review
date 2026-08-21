@@ -45,6 +45,17 @@ cd "$script_dir"
 
 gh auth status
 
+if ! gh api "repos/$repository/git/ref/tags/$tag" --silent 2>/dev/null; then
+  default_branch=$(gh api "repos/$repository" --jq .default_branch)
+  tag_commit=$(gh api "repos/$repository/commits/$default_branch" --jq .sha)
+  gh api "repos/$repository/git/refs" \
+    --method POST \
+    --field ref="refs/tags/$tag" \
+    --field sha="$tag_commit" \
+    --silent
+  echo "Created $tag at $tag_commit ($default_branch tip)"
+fi
+
 temporary_dir=$(mktemp -d)
 checkout="$temporary_dir/checkout"
 cleanup() {
