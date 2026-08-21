@@ -32,6 +32,14 @@ The VM installer supports Linux on amd64 or arm64. If `~/.local/bin` is not on
 into another local bin directory, or `GIT_REVIEW_VERSION` to install a specific
 release tag instead of the latest release.
 
+To install the agent skill definition for AI coding agents:
+
+```sh
+git-review --install-skill
+```
+
+This installs the skill to `.agents/skills/git-review/SKILL.md` in the current project.
+
 ## Configure secure hub communication
 
 Start the hub. Port 8080 serves the LAN web UI and port 8443 accepts encrypted

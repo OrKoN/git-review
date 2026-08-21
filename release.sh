@@ -62,7 +62,7 @@ cleanup() {
   rm -rf "$temporary_dir"
 }
 trap 'cleanup' EXIT HUP INT TERM
-if ! git clone --depth 1 --single-branch --branch "$tag" "https://github.com/$repository.git" "$checkout"; then
+if ! git -c advice.detachedHead=false clone --depth 1 --single-branch --branch "$tag" "https://github.com/$repository.git" "$checkout"; then
   echo "could not check out tag $tag from $repository" >&2
   exit 1
 fi
@@ -76,6 +76,7 @@ if [ "$(git -C "$checkout" rev-parse HEAD)" != "$tag_commit" ]; then
   exit 1
 fi
 cd "$checkout"
+npm --prefix web ci
 ./b test
 ./b release
 

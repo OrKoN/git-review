@@ -14,6 +14,7 @@ go_library(
         "//internal/licenses",
         "//internal/registration",
         "//internal/repository",
+        "//internal/skill",
     ],
 )
 
@@ -25,6 +26,10 @@ go_binary(
 
 go_test(
     name = "git-review_test",
-    srcs = ["enroll_test.go"],
+    srcs = [
+        "enroll_test.go",
+        "skill_test.go",
+    ],
     embed = [":git-review_lib"],
+    deps = ["//internal/skill"],
 )

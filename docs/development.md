@@ -54,8 +54,9 @@ to `gh` only for the lifetime of the script, and it is not stored by the script.
 If the tag does not exist in the destination repository, the script creates it
 at the current tip of the repository's default branch. It then clones that exact
 tag into a temporary directory, verifies the checkout, runs the complete test
-and release builds, verifies every expected binary, creates the GitHub release,
-generates release notes, and uploads all platform-specific binaries. It does not
-upload the unsuffixed local convenience copies from `bin/`.
+and release builds using the locked frontend dependencies, verifies every
+expected binary, creates the GitHub release, generates release notes, and
+uploads all platform-specific binaries. It does not upload the unsuffixed local
+convenience copies from `bin/`.
 
 Set `GIT_REVIEW_REPOSITORY` to publish to another `OWNER/REPOSITORY`.

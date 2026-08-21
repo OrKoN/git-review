@@ -1,0 +1,20 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+exports_files(
+    ["SKILL.md"],
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "skill",
+    srcs = ["skill.go"],
+    embedsrcs = ["SKILL.md"],
+    importpath = "git-review/internal/skill",
+    visibility = ["//cmd:__subpackages__"],
+)
+
+go_test(
+    name = "skill_test",
+    srcs = ["skill_test.go"],
+    embed = [":skill"],
+)

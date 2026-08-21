@@ -24,6 +24,7 @@ import (
 	"git-review/internal/licenses"
 	"git-review/internal/registration"
 	"git-review/internal/repository"
+	"git-review/internal/skill"
 )
 
 func main() {
@@ -39,12 +40,21 @@ func main() {
 		stopDaemon()
 		return
 	}
+	if len(os.Args) > 1 && os.Args[1] == "install-skill" {
+		installSkillDefinition()
+		return
+	}
 	hubURL := flag.String("hub", defaultHubURL(), "git-review hub URL")
 	port := flag.Int("port", 0, "repository server port")
 	idle := flag.Duration("idle-timeout", 0, "daemon inactivity timeout (0 disables)")
 	copyURL := flag.Bool("copy-url", true, "copy hub review URL using OSC 52")
 	message := flag.String("message", "", "proposed commit message")
+	installSkill := flag.Bool("install-skill", false, "install agent skill to .agents/skills/git-review/SKILL.md in the current project")
 	flag.Parse()
+	if *installSkill {
+		installSkillDefinition()
+		return
+	}
 	if *hubURL == "" {
 		fatal(errors.New("no hub is enrolled; run git-review enroll first"))
 	}
@@ -273,4 +283,12 @@ func defaultHubURL() string {
 		return credentials.HubURL
 	}
 	return ""
+}
+
+func installSkillDefinition() {
+	path, err := skill.InstallInProject(".")
+	if err != nil {
+		fatal(err)
+	}
+	fmt.Fprintf(os.Stdout, "Installed git-review skill to %s\n", path)
 }
